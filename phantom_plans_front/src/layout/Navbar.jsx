@@ -8,21 +8,21 @@ export default function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary shadow">
             <div className="container-fluid">
-                <Link className="navbar-brand" href="#" to="/"><img src={navLogo} alt="" className='ms-4' /></Link>
+                <Link className="navbar-brand" to="/"><img src={navLogo} alt="" className='ms-4' /></Link>
                 <div className=" navbar-collapse ms-4 w-75" id="navbarSupportedContent">
                     <ul className="navbar-nav">
                         <li className='nav-item'>
-                            <a className='nav-link text-light' href="">
+                            <a className='nav-link text-light' href="/#hero-section">
                                 Product
                             </a>
                         </li>
                         <li className='nav-item'>
-                            <a className='nav-link text-light' href="">
+                            <a className='nav-link text-light' href="/#features-section">
                                 About me
                             </a>
                         </li>
                         <li className='nav-item'>
-                            <a className='nav-link text-light' href="">
+                            <a className='nav-link text-light' href="/#about-section">
                                 Contact
                             </a>
                         </li>

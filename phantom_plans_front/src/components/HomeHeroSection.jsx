@@ -15,7 +15,7 @@ export default function HomeHeroSection() {
                         strings={[
                             "PLANNER",
                             "TASK LIST",
-                            "AGENDA",
+                            "STUDY BUDDY",
                         ]}
                         typeSpeed={75}
                         backSpeed={100}
