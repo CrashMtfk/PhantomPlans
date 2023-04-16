@@ -1,0 +1,31 @@
+.content-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: #CC6633;
+    border-radius: 25px;
+}.account-text {
+    color: #B59E90;
+}
+
+#login-btn{
+    background-color: #9A0E0E;
+}
+
+.username-input {
+    background-color: #6E6D73;
+    border-color: #B59E90;
+}
+
+.password-input {
+    background-color: #6E6D73;
+    border-color: #B59E90;
+}
+
+.username-input::placeholder {
+    color: #B59E90;
+    
+}
+
+.password-input::placeholder{
+    color: #B59E90;
+}
