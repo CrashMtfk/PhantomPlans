@@ -5,7 +5,7 @@ import '../styling/homeAboutSection.css'
 export default function HomeAboutSection() {
     return (
         <div className='mt-5 w-100 container-fluid'>
-            <div className="content-container w-75 mx-auto">
+            <div className="content-container-about w-75 mx-auto">
                 <div className="title-container">
                     <h2 className='text-center text-light fw-bold title'>Now, about me...</h2>
                 </div>
