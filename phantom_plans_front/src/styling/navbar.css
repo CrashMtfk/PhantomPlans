@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+* {
+    font-family: 'Source Code Pro', monospace;
+}
+
+.navbar {
+    background-color: #CC6633;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.action-buttons {
+    width: 12%;
+}
+
+.action-buttons li{
+    margin: 10px;
+}
+
+#log-in-link{
+    color: #9A0E0E;
+}
+
+#sign-up-button {
+    background-color: #9A0E0E;
+    color: white;
+}
