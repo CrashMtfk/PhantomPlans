@@ -1,0 +1,58 @@
+.content-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: #CC6633;
+    border-radius: 25px;
+}.account-text {
+    color: #B59E90;
+}
+
+#signup-btn{
+    background-color: #9A0E0E;
+}
+
+.username-input {
+    background-color: #6E6D73;
+    border-color: #B59E90;
+}
+
+.password-input {
+    background-color: #6E6D73;
+    border-color: #B59E90;
+}
+
+.age-input {
+    background-color: #6E6D73;
+    border-color: #B59E90;
+}
+
+.name-input {
+    background-color: #6E6D73;
+    border-color: #B59E90;
+}
+
+.email-input {
+    background-color: #6E6D73;
+    border-color: #B59E90;
+}
+
+.age-input::placeholder {
+    color: #B59E90;
+}
+
+.name-input::placeholder {
+    color: #B59E90;
+}
+
+.email-input::placeholder {
+    color: #B59E90;
+}
+
+.username-input::placeholder {
+    color: #B59E90;
+    
+}
+
+.password-input::placeholder{
+    color: #B59E90;
+}
