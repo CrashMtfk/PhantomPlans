@@ -2,10 +2,18 @@ import React from 'react'
 import Navbar from '../layout/Navbar'
 import Footer from '../layout/Footer'
 import {Link} from 'react-router-dom'
+import { useState } from 'react'
 import signupLogo from '../assets/sign_login_logo.svg'
 import '../styling/signup.css'
 
 export default function SignUp() {
+
+  const [name, setName] = useState("");
+  const [age, setAge] = useState(0);
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <div className='signup-container'>
       <Navbar />
@@ -16,19 +24,49 @@ export default function SignUp() {
         <div className="form-container w-50">
           <form action="" className='d-flex flex-column'>
             <div className="mb-4">
-              <input type="text" className='form-control name-input' id="usernameInput" placeholder='Name' />
+              <input type="text"
+              onChange={(event) => {
+                setName(event.target.value);
+              }} 
+              className='form-control name-input' 
+              id="nameInput"
+              placeholder='Name' />
             </div>
             <div className="mb-4">
-              <input type="text" className='form-control age-input' id="usernameInput" placeholder='Age' />
+              <input type="number"
+              onChange={(event) => {
+                setAge(event.target.value);
+              }}
+              className='form-control age-input'
+              id="ageInput" 
+              placeholder='Age' />
             </div>
             <div className="mb-4">
-              <input type="text" className='form-control email-input' id="usernameInput" placeholder='E-mail' />
+              <input type="text"
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }} 
+              className='form-control email-input' 
+              id="emailInput" 
+              placeholder='E-mail' />
             </div>
             <div className="mb-4">
-              <input type="text" className='form-control username-input' id="usernameInput" placeholder='Username' />
+              <input type="text" 
+              onChange={(event) => {
+                setUsername(event.target.value);
+              }}
+              className='form-control username-input' 
+              id="usernameInput" 
+              placeholder='Username' />
             </div>
             <div className="mb-4">
-              <input type="password" className='form-control password-input' id="passwordInput" placeholder='Password' />
+              <input type="password" 
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
+              className='form-control password-input' 
+              id="passwordInput" 
+              placeholder='Password' />
             </div>
             <button type="submit" className='btn wb-3 w-50 mx-auto text-light' id='signup-btn'>Sign Up</button>
           </form>
