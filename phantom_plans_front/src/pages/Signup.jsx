@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import { useState } from 'react'
 import signupLogo from '../assets/sign_login_logo.svg'
 import '../styling/signup.css'
+import Axios from 'axios'
 
 export default function SignUp() {
 
@@ -13,6 +14,18 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const addUser = () => {
+    Axios.post('http://localhost:3001/create', {
+      name : name,
+      age : age,
+      email : email,
+      username : username,
+      password : password
+    }).then(() => {
+      console.log("success");
+    });
+  }
 
   return (
     <div className='signup-container'>
@@ -68,7 +81,7 @@ export default function SignUp() {
               id="passwordInput" 
               placeholder='Password' />
             </div>
-            <button type="submit" className='btn wb-3 w-50 mx-auto text-light' id='signup-btn'>Sign Up</button>
+            <button type="submit" onClick={addUser} className='btn wb-3 w-50 mx-auto text-light' id='signup-btn'>Sign Up</button>
           </form>
           <div className="no-account-text mb-5 mt-5">
             <p className='text-center account-text'>Already have an account?<Link to={'/login'} className='nav-link text-light'>Log In</Link></p>
