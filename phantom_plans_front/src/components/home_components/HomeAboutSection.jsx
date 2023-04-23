@@ -1,6 +1,6 @@
 import React from 'react'
-import profileImage from '../assets/profile_picture_wbg.png'
-import '../styling/homeAboutSection.css'
+import profileImage from '../../assets/profile_picture_wbg.png'
+import '../../styling/homeAboutSection.css'
 
 export default function HomeAboutSection() {
     return (

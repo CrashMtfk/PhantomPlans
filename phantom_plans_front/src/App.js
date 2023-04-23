@@ -4,6 +4,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Signup from './pages/Signup';
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route exact path="/" element = {<Home/>}/>
         <Route exact path="/signup" element = {<Signup/>}/>
         <Route exact path="/login" element = {<Login/>}/>
+        <Route exact path='/dashboard' element = {<Dashboard />} />
       </Routes>
       </Router>
 

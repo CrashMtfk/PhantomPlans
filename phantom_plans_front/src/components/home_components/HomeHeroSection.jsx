@@ -1,7 +1,7 @@
 import React from 'react'
-import heroIllustration from '../assets/calendar_hero_illustration.svg'
+import heroIllustration from '../../assets/calendar_hero_illustration.svg'
 import Typed from 'react-typed'
-import '../styling/homeHeroSection.css'
+import '../../styling/homeHeroSection.css'
 import {Link} from 'react-router-dom'
 
 export default function HomeHeroSection() {

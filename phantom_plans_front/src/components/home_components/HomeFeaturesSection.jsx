@@ -1,7 +1,7 @@
 import React from 'react'
-import '../styling/homeFeaturesSection.css'
-import taskFeatureImage from '../assets/to_do_list.svg'
-import pomoFeatureImage from '../assets/study.svg'
+import '../../styling/homeFeaturesSection.css'
+import taskFeatureImage from '../../assets/to_do_list.svg'
+import pomoFeatureImage from '../../assets/study.svg'
 
 export default function HomeFeaturesSection() {
   return (
