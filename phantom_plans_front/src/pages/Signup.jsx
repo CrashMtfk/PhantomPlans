@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../layout/Navbar'
 import Footer from '../layout/Footer'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import signupLogo from '../assets/sign_login_logo.svg'
 import '../styling/signup.css'
@@ -17,8 +17,6 @@ export default function SignUp() {
   const [displayMessage, setDisplayMessage] = useState("");
   const [isError, setIsError] = useState(false);
 
-  const navigate = useNavigate();
-
   const addUser = (event) => {
     event.preventDefault();
     Axios.post('http://localhost:3001/create', {
@@ -31,7 +29,6 @@ export default function SignUp() {
       if (res.data === 'Register success!') setIsError(false);
       else setIsError(true);
       setDisplayMessage(res.data);
-      navigate('/login');
     }).catch((err) => {
       console.log(err);
     });

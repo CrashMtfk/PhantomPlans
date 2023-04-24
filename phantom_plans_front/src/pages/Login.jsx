@@ -39,10 +39,10 @@ export default function LogIn() {
         <div className="form-container w-50">
           <form action="" onSubmit={loginUser} className='d-flex flex-column'>
             <div className="mb-4">
-              <input type="text" onChange={(event) => setLoginUsername(event.target.value)} className='form-control username-input' id="usernameInput" placeholder='Username' />
+              <input type="text" name='username' onChange={(event) => setLoginUsername(event.target.value)} className='form-control username-input' id="usernameInput" placeholder='Username' />
             </div>
             <div className="mb-4">
-              <input type="password" onChange={(event) => setLoginPassword(event.target.value)} className='form-control password-input' id="passwordInput" placeholder='Password' />
+              <input type="password" name='password' onChange={(event) => setLoginPassword(event.target.value)} className='form-control password-input' id="passwordInput" placeholder='Password' />
             </div>
             <button type="submit" className='btn wb-3 w-50 mx-auto text-light' id='login-btn'>Log In</button>
           </form>
