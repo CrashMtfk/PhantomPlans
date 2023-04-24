@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../layout/Navbar'
 import Footer from '../layout/Footer'
-import {Link} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import signupLogo from '../assets/sign_login_logo.svg'
 import '../styling/signup.css'
@@ -14,17 +14,24 @@ export default function SignUp() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
+  const [displayMessage, setDisplayMessage] = useState("");
+  const [isError, setIsError] = useState(false);
+
+  const navigate = useNavigate();
 
   const addUser = (event) => {
     event.preventDefault();
     Axios.post('http://localhost:3001/create', {
-      name : registerName,
-      age : registerAge,
-      email : registerEmail,
-      username : registerUsername,
-      password : registerPassword
+      name: registerName,
+      age: registerAge,
+      email: registerEmail,
+      username: registerUsername,
+      password: registerPassword
     }).then((res) => {
-      console.log(res.data);
+      if (res.data === 'Register success!') setIsError(false);
+      else setIsError(true);
+      setDisplayMessage(res.data);
+      navigate('/login');
     }).catch((err) => {
       console.log(err);
     });
@@ -39,50 +46,59 @@ export default function SignUp() {
         </div>
         <div className="form-container w-50">
           <form action="" onSubmit={addUser} className='d-flex flex-column'>
+            <div className="report-text-container text-center">
+              {
+                isError ?
+                  <p className='text-danger'>{displayMessage}</p>
+                  :
+                  <p className='text-success'>{displayMessage}</p>
+
+              }
+            </div>
             <div className="mb-4">
               <input type="text"
-              onChange={(event) => {
-                setRegisterName(event.target.value);
-              }} 
-              className='form-control name-input' 
-              id="nameInput"
-              placeholder='Name' />
+                onChange={(event) => {
+                  setRegisterName(event.target.value);
+                }}
+                className='form-control name-input'
+                id="nameInput"
+                placeholder='Name' />
             </div>
             <div className="mb-4">
               <input type="number"
-              onChange={(event) => {
-                setRegisterAge(event.target.value);
-              }}
-              className='form-control age-input'
-              id="ageInput" 
-              placeholder='Age' />
+                onChange={(event) => {
+                  setRegisterAge(event.target.value);
+                }}
+                className='form-control age-input'
+                id="ageInput"
+                placeholder='Age' />
             </div>
             <div className="mb-4">
               <input type="text"
-              onChange={(event) => {
-                setRegisterEmail(event.target.value);
-              }} 
-              className='form-control email-input' 
-              id="emailInput" 
-              placeholder='E-mail' />
+                onChange={(event) => {
+                  setRegisterEmail(event.target.value);
+                }}
+                className='form-control email-input'
+                id="emailInput"
+                placeholder='E-mail' />
             </div>
             <div className="mb-4">
-              <input type="text" 
-              onChange={(event) => {
-                setRegisterUsername(event.target.value);
-              }}
-              className='form-control username-input' 
-              id="usernameInput" 
-              placeholder='Username' />
+              <input type="text"
+                onChange={(event) => {
+                  setRegisterUsername(event.target.value);
+                }}
+                className='form-control username-input'
+                id="usernameInput"
+                placeholder='Username' />
             </div>
             <div className="mb-4">
-              <input type="password" 
-              onChange={(event) => {
-                setRegisterPassword(event.target.value);
-              }}
-              className='form-control password-input' 
-              id="passwordInput" 
-              placeholder='Password' />
+              <input type="password"
+                onChange={(event) => {
+                  setRegisterPassword(event.target.value);
+                }}
+                className='form-control password-input'
+                id="passwordInput"
+                placeholder='Password' />
             </div>
             <button type="submit" className='btn wb-3 w-50 mx-auto text-light' id='signup-btn'>Sign Up</button>
           </form>
