@@ -8,11 +8,15 @@ const LocalStrategy = require('passport-local').Strategy;
 const hashSaltRounds = 10;
 
 const app = express();
-app.use(cors());
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
 app.use(express.json());
@@ -55,7 +59,6 @@ passport.use(new LocalStrategy({
                         return done(null, false, { message: 'Incorrect username or password.' });
                     }
                     const user = result[0];
-                    console.log(usernameField + " " + passwordField + " after db connect 1");
                     const passwordMatch = await bcrypt.compare(passwordField, user.password);
                     if (!passwordMatch) {
                         return done(null, false, { message: 'Incorrect username or password.' });
@@ -74,8 +77,8 @@ passport.use(new LocalStrategy({
 
 passport.serializeUser(function (user, done) {
     done(null, String(user.id));
-  });
-  
+});
+
 
 passport.deserializeUser(function (id, done) {
     db.connect();
@@ -90,7 +93,7 @@ passport.deserializeUser(function (id, done) {
         }
 
         const user = rows[0];
-        return done(null, {id: user.iduser});
+        return done(null, { id: user.iduser, name: user.name, username: user.user_name });
     });
 })
 
@@ -98,8 +101,20 @@ passport.deserializeUser(function (id, done) {
 
 app.post('/login', passport.authenticate('local'), (req, res) => {
     // this code will only execute if the user was successfully authenticated
-    console.log('Is this functioning?');
     res.send('Login successful!');
+});
+
+app.delete('/logout', (req, res) => {
+    req.logout(function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            req.session.destroy();
+            res.redirect('/');
+        }
+    });
+    res.send('Logged out successfully!');
+
 });
 
 
@@ -141,6 +156,18 @@ app.post('/create', (req, res) => {
             }
         }
     );
+});
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/login');
+}
+
+app.get('/dashboard/profile', isLoggedIn, (req, res) => {
+    const userName = req.user.name;
+    res.send(userName);
 });
 
 app.listen(3001, () => {
