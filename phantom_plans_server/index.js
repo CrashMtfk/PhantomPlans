@@ -4,6 +4,11 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const User = require('./models/User');
+const session = require('express-session');
+const passport = require('passport');
+
+//Passport config
+require('./config/passport')(passport);
 
 // DB Config
 const db = require('./config/keys').MongoURI;
@@ -16,7 +21,19 @@ mongoose.connect(db, { useNewUrlParser: true })
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(cors());
+
+// Register handle
 
 app.post('/register', (req, res) => {
     // Getting the new user data from the front end
@@ -62,8 +79,16 @@ app.post('/register', (req, res) => {
             }
         })
     }
-})
+});
 
+// Login handle
+app.post('/login', (req,res,next) => {
+    passport.authenticate('local', {
+        successMessage : '/dashboard',
+        failureMessage: '/login',
+        
+    })(req,res,next);
+});
 
 const PORT = process.env.PORT || 5000;
 

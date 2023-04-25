@@ -3,8 +3,9 @@ import Navbar from '../layout/Navbar'
 import Footer from '../layout/Footer'
 import loginLogo from '../assets/sign_login_logo.svg'
 import '../styling/login.css'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react'
+import axios from 'axios'
 
 
 export default function LogIn() {
@@ -14,8 +15,12 @@ export default function LogIn() {
 
   const loginUser = (event) => {
     event.preventDefault();
-    console.log('Username ' + loginUsername);
-    console.log('Password', loginPassword);
+    axios.post('http://localhost:5000/login',{
+      username: loginUsername,
+      password: loginPassword
+    }).then((res) => {
+      console.log(res.data);
+    }).catch((err) => console.log(err));
   };
 
   return (
