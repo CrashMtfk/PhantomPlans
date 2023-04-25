@@ -3,32 +3,27 @@ import Navbar from '../layout/Navbar'
 import Footer from '../layout/Footer'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import axios from 'axios';
 import signupLogo from '../assets/sign_login_logo.svg'
 import '../styling/signup.css'
-import Axios from 'axios'
 
 export default function SignUp() {
 
   const [registerName, setRegisterName] = useState("");
   const [registerAge, setRegisterAge] = useState(0);
-  const [registerEmail, setRegisterEmail] = useState("");
   const [registerUsername, setRegisterUsername] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
-  const [displayMessage, setDisplayMessage] = useState("");
-  const [isError, setIsError] = useState(false);
+  const [registerMessage, setRegisterMessage] = useState("");
 
-  const addUser = (event) => {
+  const registerUser = (event) => {
     event.preventDefault();
-    Axios.post('http://localhost:3001/create', {
-      name: registerName,
-      age: registerAge,
-      email: registerEmail,
-      username: registerUsername,
-      password: registerPassword
+    axios.post('http://localhost:5000/register',{
+      name : registerName,
+      age : registerAge,
+      username : registerUsername,
+      password : registerPassword
     }).then((res) => {
-      if (res.data === 'Register success!') setIsError(false);
-      else setIsError(true);
-      setDisplayMessage(res.data);
+      setRegisterMessage(res.data);
     }).catch((err) => {
       console.log(err);
     });
@@ -41,18 +36,15 @@ export default function SignUp() {
         <div className="logo-container mt-5 mb-5">
           <img src={signupLogo} alt="" />
         </div>
-        <div className="form-container w-50">
-          <form action="" onSubmit={addUser} className='d-flex flex-column'>
-            <div className="report-text-container text-center">
-              {
-                isError ?
-                  <p className='text-danger'>{displayMessage}</p>
-                  :
-                  <p className='text-success'>{displayMessage}</p>
-
-              }
-            </div>
+        <div className="message-container text-center">
+          <p>{registerMessage}</p>
+        </div>
+        <div className="form-container w-75">
+          <form action="" onSubmit={registerUser} className='d-flex flex-column'>
             <div className="mb-4">
+              {
+              // Input for name of the user
+              }
               <input type="text"
                 onChange={(event) => {
                   setRegisterName(event.target.value);
@@ -62,6 +54,9 @@ export default function SignUp() {
                 placeholder='Name' />
             </div>
             <div className="mb-4">
+              {
+              // Input for age of the user
+              }
               <input type="number"
                 onChange={(event) => {
                   setRegisterAge(event.target.value);
@@ -71,15 +66,9 @@ export default function SignUp() {
                 placeholder='Age' />
             </div>
             <div className="mb-4">
-              <input type="text"
-                onChange={(event) => {
-                  setRegisterEmail(event.target.value);
-                }}
-                className='form-control email-input'
-                id="emailInput"
-                placeholder='E-mail' />
-            </div>
-            <div className="mb-4">
+              {
+              // Input for username of the user
+              }
               <input type="text"
                 onChange={(event) => {
                   setRegisterUsername(event.target.value);
@@ -89,6 +78,9 @@ export default function SignUp() {
                 placeholder='Username' />
             </div>
             <div className="mb-4">
+              {
+              // Input for password of the user
+              }
               <input type="password"
                 onChange={(event) => {
                   setRegisterPassword(event.target.value);
