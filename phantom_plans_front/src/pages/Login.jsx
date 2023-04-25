@@ -3,30 +3,19 @@ import Navbar from '../layout/Navbar'
 import Footer from '../layout/Footer'
 import loginLogo from '../assets/sign_login_logo.svg'
 import '../styling/login.css'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { useState } from 'react'
-import axios from 'axios'
 
 
 export default function LogIn() {
 
   const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
-  const navigate = useNavigate();
 
   const loginUser = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:3001/login', {
-      username: loginUsername,
-      password: loginPassword
-    }).then((res) => {
-      if(res.data.message){
-        alert(res.data.message);
-      } else {
-        localStorage.setItem('accessToken', res.data[0].access_token);
-        navigate('/dashboard');
-      }
-    });
+    console.log('Username ' + loginUsername);
+    console.log('Password', loginPassword);
   };
 
   return (
