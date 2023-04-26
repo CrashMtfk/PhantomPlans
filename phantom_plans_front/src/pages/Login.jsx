@@ -12,6 +12,7 @@ export default function LogIn() {
 
   const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  const navigate = useNavigate();
 
   const loginUser = (event) => {
     event.preventDefault();
@@ -19,7 +20,11 @@ export default function LogIn() {
       username: loginUsername,
       password: loginPassword
     }).then((res) => {
-      console.log(res.data);
+      if(res.status === 200){
+        navigate('/dashboard');
+      } else {
+        navigate('/login');
+      }
     }).catch((err) => console.log(err));
   };
 

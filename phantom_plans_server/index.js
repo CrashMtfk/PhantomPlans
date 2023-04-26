@@ -33,6 +33,14 @@ app.use(passport.session());
 
 app.use(cors());
 
+app.get('/dashboard', (req,res) => {
+    res.send('Hello new user');
+});
+
+app.get('/login', (req,res) => {
+    res.send('Maybe with log in will work');
+});
+
 // Register handle
 
 app.post('/register', (req, res) => {
@@ -83,10 +91,11 @@ app.post('/register', (req, res) => {
 
 // Login handle
 app.post('/login', (req,res,next) => {
-    passport.authenticate('local', {
-        successMessage : '/dashboard',
-        failureMessage: '/login',
-        
+    passport.authenticate('local', (err,user, info, status)=>{
+        console.log(info);
+        if(err){return next(err);}
+        if(!user){return res.status(401).redirect('/login');}
+        res.redirect('/dashboard');
     })(req,res,next);
 });
 
