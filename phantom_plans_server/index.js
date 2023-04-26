@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
@@ -21,6 +22,21 @@ app.use(cors({
     methods: 'GET,POST,PUT,DELETE',
     credentials: true,
 }));
+
+
+app.get('/users', async (req,res) => {
+    const allUsers = await User.find();
+    return res.json(allUsers);
+});
+
+app.get('/users/:username', async (req,res) => {
+    const { username } = req.params;
+    const user = await User.find({username : username})
+                            .then((user) => {
+                                res.status(200).json(user);
+                            });
+    return res.status(200).json(user);
+});
 
 // Register handle
 
@@ -70,24 +86,62 @@ app.post('/register', (req, res) => {
     }
 });
 
-app.post('/api/login', async (req, res) => {
-    const { usernameLogin, passwordLogin } = req.body;
-    console.log(usernameLogin + " " + passwordLogin);
-    try {
-        const user = await User.findOne({ username: usernameLogin });
-        if (!user) {
-            res.status(401).send('User not found');
-        } else {
-            const isMatching = await bcrypt.compare(passwordLogin, user.password);
-            if (!isMatching) {
-                res.status(401).send('Incorrect password');
-            } else {
-                res.send(user);
+app.post('/login', async (req, res) => {
+    const {username, password} = req.body;
+    const user = await User.findOne({username : username})
+        .then(async (user) => {
+            if(!user) res.status(401).send('Wrong username!');
+            const isPasswordMatch = await bcrypt.compare(password, user.password);
+            if(!isPasswordMatch){
+                res.status(401).send('Wrong password!');
+            } else{
+                const accessToken = jwt.sign({id: user.id}, 'secretKey', {expiresIn: "60s"});
+                res.json({
+                    id : user._id,
+                    username: user.username,
+                    password: user.password,
+                    accessToken,
+                });
             }
-        }
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Error in getting user');
+        })
+        .catch((err) => {
+            console.log(err)
+            res.status(500).send('Something wrong happend with the request!')
+        });
+});
+
+const verify = (req,res,next) => {
+    const authHeader = req.headers.authorization;
+    if(authHeader){
+        const token = authHeader.split(" ")[1];
+
+        jwt.verify(token, 'secretKey', (err,user) => {
+            if(err){
+                res.status(403).json("Token is not valid!");
+            }
+
+            req.user = user;
+            next();
+        })
+    } else {
+        res.status(401).json("You are not authenticated");
+    }
+}
+
+app.delete('/users/:userId', verify, async (req,res) => {
+    if(req.user.id == req.params.userId){
+        console.log(req.user.id);
+        await User.findByIdAndDelete(req.user.id)
+            .then(deletedUser => {
+                if (!deletedUser){
+                    res.status(401).json('User not found!');
+                } else {
+                    res.status(200).json('User has been deleted!');
+                }
+            })
+            .catch(err => res.status(401).json('Something went wrong with deletion!'));
+    } else {
+        res.status(403).json("Not allowed to delete");
     }
 });
 
