@@ -3,30 +3,20 @@ import Navbar from '../layout/Navbar'
 import Footer from '../layout/Footer'
 import loginLogo from '../assets/sign_login_logo.svg'
 import '../styling/login.css'
-import {Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react'
-import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 export default function LogIn() {
 
   const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
-  const navigate = useNavigate();
 
-  const loginUser = (event) => {
-    event.preventDefault();
-    axios.post('http://localhost:5000/login',{
-      username: loginUsername,
-      password: loginPassword
-    }).then((res) => {
-      if(res.status === 200){
-        navigate('/dashboard');
-      } else {
-        navigate('/login');
-      }
-    }).catch((err) => console.log(err));
-  };
+  const printUser = () => {
+    console.log(loginUsername);
+    console.log(loginPassword);
+  }
+  
 
   return (
     <div className='login-container'>
@@ -36,7 +26,7 @@ export default function LogIn() {
           <img src={loginLogo} alt="" />
         </div>
         <div className="form-container w-50">
-          <form action="" onSubmit={loginUser} className='d-flex flex-column'>
+          <form action="" onSubmit={printUser} className='d-flex flex-column'>
             <div className="mb-4">
               <input type="text" name='username' onChange={(event) => setLoginUsername(event.target.value)} className='form-control username-input' id="usernameInput" placeholder='Username' />
             </div>

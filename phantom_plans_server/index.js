@@ -4,11 +4,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const User = require('./models/User');
-const session = require('express-session');
-const passport = require('passport');
-
-//Passport config
-require('./config/passport')(passport);
 
 // DB Config
 const db = require('./config/keys').MongoURI;
@@ -19,49 +14,35 @@ mongoose.connect(db, { useNewUrlParser: true })
 
 // Middleware to get the body parser function
 app.use(express.json());
-app.use(express.urlencoded({extended : true}));
+app.use(express.urlencoded({ extended: true }));
 
-app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,POST,PUT,DELETE',
+    credentials: true,
 }));
-
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(cors());
-
-app.get('/dashboard', (req,res) => {
-    res.send('Hello new user');
-});
-
-app.get('/login', (req,res) => {
-    res.send('Maybe with log in will work');
-});
 
 // Register handle
 
 app.post('/register', (req, res) => {
     // Getting the new user data from the front end
-    const {name, age, username, password} = req.body;
+    const { name, age, username, password } = req.body;
     let responseMessage;
 
     // Check if the fields are filled
-    if(!name || !age || !username || !password){
+    if (!name || !age || !username || !password) {
         responseMessage = 'Please fill in all fields';
         res.send(responseMessage);
-    } 
-    else{ // We proceed with adding the user
+    }
+    else { // We proceed with adding the user
 
         // Check if there is another user already with this username
-        User.findOne({username : username}).then(user => {
-            if(user){
+        User.findOne({ username: username }).then(user => {
+            if (user) {
                 responseMessage = 'There is already a user with this username!';
                 res.send(responseMessage);
             }
-            else if(password.length < 6) { // Check if the password's length has the minimum length
+            else if (password.length < 6) { // Check if the password's length has the minimum length
                 responseMessage = 'Password should be at least 6 characters!';
                 res.send(responseMessage);
             }
@@ -73,8 +54,8 @@ app.post('/register', (req, res) => {
                     password
                 });
 
-                bcrypt.genSalt(10, (err,salt) => bcrypt.hash(newUser.password, salt, (err,hash) => {
-                    if(err) throw err;
+                bcrypt.genSalt(10, (err, salt) => bcrypt.hash(newUser.password, salt, (err, hash) => {
+                    if (err) throw err;
                     newUser.password = hash;
 
                     newUser.save()
@@ -89,15 +70,27 @@ app.post('/register', (req, res) => {
     }
 });
 
-// Login handle
-app.post('/login', (req,res,next) => {
-    passport.authenticate('local', (err,user, info, status)=>{
-        console.log(info);
-        if(err){return next(err);}
-        if(!user){return res.status(401).redirect('/login');}
-        res.redirect('/dashboard');
-    })(req,res,next);
+app.post('/api/login', async (req, res) => {
+    const { usernameLogin, passwordLogin } = req.body;
+    console.log(usernameLogin + " " + passwordLogin);
+    try {
+        const user = await User.findOne({ username: usernameLogin });
+        if (!user) {
+            res.status(401).send('User not found');
+        } else {
+            const isMatching = await bcrypt.compare(passwordLogin, user.password);
+            if (!isMatching) {
+                res.status(401).send('Incorrect password');
+            } else {
+                res.send(user);
+            }
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error in getting user');
+    }
 });
+
 
 const PORT = process.env.PORT || 5000;
 
