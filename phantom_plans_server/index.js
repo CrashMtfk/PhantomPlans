@@ -24,6 +24,7 @@ app.use(cors({
 }));
 
 
+
 app.get('/users', async (req,res) => {
     const allUsers = await User.find();
     return res.json(allUsers);
@@ -86,6 +87,14 @@ app.post('/register', (req, res) => {
     }
 });
 
+const generateAccessToken = (user) => {
+    return jwt.sign(
+        {id: user.id},
+        'secretKey',
+        {expiresIn: "1d"}
+    );
+};
+
 app.post('/login', async (req, res) => {
     const {username, password} = req.body;
     const user = await User.findOne({username : username})
@@ -95,7 +104,7 @@ app.post('/login', async (req, res) => {
             if(!isPasswordMatch){
                 res.status(401).send('Wrong password!');
             } else{
-                const accessToken = jwt.sign({id: user.id}, 'secretKey', {expiresIn: "60s"});
+                const accessToken = generateAccessToken(user);
                 res.json({
                     id : user._id,
                     username: user.username,
@@ -111,6 +120,7 @@ app.post('/login', async (req, res) => {
 });
 
 const verify = (req,res,next) => {
+    console.log(req.headers.authorization);
     const authHeader = req.headers.authorization;
     if(authHeader){
         const token = authHeader.split(" ")[1];
