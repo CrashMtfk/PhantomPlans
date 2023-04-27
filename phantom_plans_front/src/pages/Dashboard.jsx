@@ -1,15 +1,15 @@
 import React from 'react'
+import Sidebar from '../layout/Sidebar'
+import Profile from '../components/dashboard_components/Profile';
+import TasksSection from '../components/dashboard_components/TasksSection';
+import PomoSection from '../components/dashboard_components/PomoSection';
 
 
 export default function Dashboard({user}) {
 
   return (
     <div>
-      <h1>Dashboard</h1>
-      <button>Log Out</button>
-      <p>Hello</p>
-      <p>{user.username}</p>
-      <p>{user.id}</p>
+        <Sidebar />
     </div>
   )
 }
