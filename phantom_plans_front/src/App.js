@@ -4,8 +4,11 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
 import { useState } from 'react';
+import Profile from './pages/Profile';
+import Tasks from './pages/Tasks';
+import Pomodoro from './pages/Pomodoro';
+
 
 function App() {
 
@@ -17,12 +20,17 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/login" element={<Login setUser={setUser} />} />
           {
-             user ? (
-              <Route exact path='/dashboard' element={<Dashboard user = {user} />} />
-             ) : (
-              <Route exact path="/login" element={<Login setUser={setUser} />} />
-             )}
+             user && <Route exact path='/profile' element={<Profile user = {user}/>}/>
+          }
+          {
+             user && <Route exact path='/tasks' element={<Tasks user = {user} />} />
+             
+          }
+          {
+             user && <Route exact path='/pomodoro' element={<Pomodoro user = {user} />} />
+          }
         </Routes>
       </BrowserRouter>
 

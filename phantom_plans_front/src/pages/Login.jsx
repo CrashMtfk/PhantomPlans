@@ -21,7 +21,7 @@ export default function LogIn({setUser}) {
         password: loginPassword
       });
       setUser(req.data);
-      navigate('/dashboard')
+      navigate('/profile');
   };
   
 
