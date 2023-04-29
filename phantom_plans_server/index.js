@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const User = require('./models/User');
+const Task = require('./models/Task');
 
 // DB Config
 const db = require('./config/keys').MongoURI;
@@ -25,17 +26,17 @@ app.use(cors({
 
 
 
-app.get('/users', async (req,res) => {
+app.get('/users', async (req, res) => {
     const allUsers = await User.find();
     return res.json(allUsers);
 });
 
-app.get('/users/:username', async (req,res) => {
+app.get('/users/:username', async (req, res) => {
     const { username } = req.params;
-    const user = await User.find({username : username})
-                            .then((user) => {
-                                res.status(200).json(user);
-                            });
+    const user = await User.find({ username: username })
+        .then((user) => {
+            res.status(200).json(user);
+        });
     return res.status(200).json(user);
 });
 
@@ -89,24 +90,24 @@ app.post('/register', (req, res) => {
 
 const generateAccessToken = (user) => {
     return jwt.sign(
-        {id: user.id},
+        { id: user.id },
         'secretKey',
-        {expiresIn: "1d"}
+        { expiresIn: "1d" }
     );
 };
 
 app.post('/login', async (req, res) => {
-    const {username, password} = req.body;
-    const user = await User.findOne({username : username})
+    const { username, password } = req.body;
+    const user = await User.findOne({ username: username })
         .then(async (user) => {
-            if(!user) res.status(401).send('Wrong username!');
+            if (!user) res.status(401).send('Wrong username!');
             const isPasswordMatch = await bcrypt.compare(password, user.password);
-            if(!isPasswordMatch){
+            if (!isPasswordMatch) {
                 res.status(401).send('Wrong password!');
-            } else{
+            } else {
                 const accessToken = generateAccessToken(user);
                 res.json({
-                    id : user._id,
+                    id: user._id,
                     username: user.username,
                     password: user.password,
                     accessToken,
@@ -119,31 +120,29 @@ app.post('/login', async (req, res) => {
         });
 });
 
-const verify = (req,res,next) => {
-    console.log(req.headers.authorization);
+const verify = (req, res, next) => {
     const authHeader = req.headers.authorization;
-    if(authHeader){
+    if (authHeader) {
         const token = authHeader.split(" ")[1];
 
-        jwt.verify(token, 'secretKey', (err,user) => {
-            if(err){
-                res.status(403).json("Token is not valid!");
+        jwt.verify(token, 'secretKey', (err, user) => {
+            if (err) {
+                return res.status(403).json("Token is not valid!");
             }
 
             req.user = user;
             next();
         })
     } else {
-        res.status(401).json("You are not authenticated");
+       return res.status(401).json("You are not authenticated");
     }
 }
 
-app.delete('/users/:userId', verify, async (req,res) => {
-    if(req.user.id == req.params.userId){
-        console.log(req.user.id);
+app.delete('/users/:userId', verify, async (req, res) => {
+    if (req.user.id == req.params.userId) {
         await User.findByIdAndDelete(req.user.id)
             .then(deletedUser => {
-                if (!deletedUser){
+                if (!deletedUser) {
                     res.status(401).json('User not found!');
                 } else {
                     res.status(200).json('User has been deleted!');
@@ -153,6 +152,52 @@ app.delete('/users/:userId', verify, async (req,res) => {
     } else {
         res.status(403).json("Not allowed to delete");
     }
+});
+
+app.post('/task/add', verify, async (req, res) => {
+    const { taskTitle, taskDescription, taskDeadline, taskUserId } = req.body;
+    await User.findById(taskUserId)
+        .then(user => {
+            if (user) {
+                console.log('Found the user!Proceed with task adding!');
+                const newTask = new Task({
+                    title: taskTitle,
+                    description: taskDescription,
+                    deadline: taskDeadline,
+                    taskIsCompleted: false,
+                    taskCreationDate: new Date,
+                    userId: taskUserId
+                });
+                newTask.save()
+                    .then(task => {
+                        res.status(200).json('Task added succesfully!');
+                    })
+            } else {
+                res.status(401).json('No user with this id!');
+            }
+        })
+        .catch(err => res.status(401).json('Something went wrong adding a task!'));
+});
+
+app.get('/tasks',verify, async (req,res) => {
+    const {userId} = req.body;
+    const allTasks = await Task.find({userId: userId})
+    return res.json(allTasks);
+});
+
+app.delete('/task/remove', verify, async (req,res) => {
+    const {taskTitle} = req.body;
+    console.log(taskTitle);
+    await Task.findOneAndDelete({title : taskTitle})
+        .then(task => {
+            if(!task){
+                res.status(401).json('This task doesnt exist');
+            } else 
+            res.status(200).json('Task removed successfully')
+        })
+        .catch(err => {
+            res.status(401).json('Something happened when trying to delete task!')
+        })
 });
 
 

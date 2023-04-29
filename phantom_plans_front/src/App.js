@@ -4,7 +4,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Profile from './pages/Profile';
 import Tasks from './pages/Tasks';
 import Pomodoro from './pages/Pomodoro';
@@ -12,7 +12,14 @@ import Pomodoro from './pages/Pomodoro';
 
 function App() {
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if(storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  },[]);
 
   return (
     <div className="App">

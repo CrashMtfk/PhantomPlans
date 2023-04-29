@@ -20,8 +20,12 @@ export default function LogIn({setUser}) {
         username: loginUsername,
         password: loginPassword
       });
-      setUser(req.data);
-      navigate('/profile');
+      const user = req.data;
+      setUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
+      const token = req.data.token;
+      localStorage.setItem('token', token);
+      navigate('/tasks');
   };
   
 
