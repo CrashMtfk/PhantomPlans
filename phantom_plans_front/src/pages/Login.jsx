@@ -23,7 +23,7 @@ export default function LogIn({setUser}) {
       const user = req.data;
       setUser(user);
       localStorage.setItem('user', JSON.stringify(user));
-      const token = req.data.token;
+      const token = req.data.accessToken;
       localStorage.setItem('token', token);
       navigate('/tasks');
   };

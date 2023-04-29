@@ -179,8 +179,8 @@ app.post('/task/add', verify, async (req, res) => {
         .catch(err => res.status(401).json('Something went wrong adding a task!'));
 });
 
-app.get('/tasks',verify, async (req,res) => {
-    const {userId} = req.body;
+app.get('/tasks', verify,async (req,res) => {
+    const {userId} = req.query;
     const allTasks = await Task.find({userId: userId})
     return res.json(allTasks);
 });
