@@ -122,6 +122,7 @@ app.post('/login', async (req, res) => {
 
 const verify = (req, res, next) => {
     const authHeader = req.headers.authorization;
+    console.log(authHeader);
     if (authHeader) {
         const token = authHeader.split(" ")[1];
 
@@ -155,8 +156,9 @@ app.delete('/users/:userId', verify, async (req, res) => {
 });
 
 app.post('/task/add', verify, async (req, res) => {
-    const { taskTitle, taskDescription, taskDeadline, taskUserId } = req.body;
-    await User.findById(taskUserId)
+    const { taskTitle, taskDescription, taskDeadline, userId } = req.query;
+    console.log(userId);
+    await User.findById(userId)
         .then(user => {
             if (user) {
                 console.log('Found the user!Proceed with task adding!');
@@ -166,7 +168,7 @@ app.post('/task/add', verify, async (req, res) => {
                     deadline: taskDeadline,
                     taskIsCompleted: false,
                     taskCreationDate: new Date,
-                    userId: taskUserId
+                    userId: userId
                 });
                 newTask.save()
                     .then(task => {

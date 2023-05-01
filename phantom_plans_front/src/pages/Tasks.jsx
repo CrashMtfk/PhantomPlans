@@ -5,14 +5,25 @@ import TaskContainer from '../components/dashboard_components/TaskContainer';
 
 function Tasks({ user }) {
 
+  
+
+  const accessToken = localStorage.getItem('token');
+
+  axios.defaults.headers.common = {
+    'Authorization': 'Bearer ' + accessToken
+  };
+
   const [taskList, setTaskList] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0);
   const [addState, setAddState] = useState(false);
   const id = user.id;
 
+  const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [newTaskDescription, setNewTaskDescription] = useState('');
+  const [newTaskDeadline, setNewTaskDeadline] = useState('');
+
   useEffect(() => {
     const getTasks = async () => {
-      const accessToken = localStorage.getItem('token');
       await axios.get("http://localhost:5000/tasks", {
         headers: {
           Authorization: 'Bearer ' + accessToken
@@ -31,42 +42,74 @@ function Tasks({ user }) {
     getTasks();
   }, [refreshKey, id, addState]);
 
-  const handleAddState = () => {
-    setAddState(!addState);
+  const addTaskForm = async (e) => {
+    e.preventDefault();
+    await axios.post("http://localhost:5000/task/add", {
+      params: {
+        title: newTaskTitle,
+        description: newTaskDescription,
+        deadline : newTaskDeadline,
+        userId: id
+      },
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + accessToken
+      },
+    })
+    .then(resp => {
+      setRefreshKey(refreshKey + 1);
+      setAddState(!addState);
+    })
+    .catch(err => console.log(err));
   };
+
+  const handleToggleState = () => {
+    setAddState(!addState);
+  }
 
 
 
   return (
     <div style={{ display: 'flex' }}>
       <SidebarNav user={user} />
-      { addState ? 
-      <div className="tasks-content w-100">
-        <button onClick={handleAddState}>Cancel</button>
-        <button>Add Task</button>
-      </div> 
-      :
-      <div className="tasks-content w-100">
-        <div className="header-content d-flex" style={{ margin: '2%' }}>
-          <div className="title-container me-2">
-            <h2 className='text-light'>Tasks</h2>
+      {addState ?
+        <div className="tasks-content w-100">
+          <form action="" onSubmit={addTaskForm}>
+            <div className="mb-3">
+              <input type="text" onChange={event => setNewTaskTitle(event.target.value)} className="form-control" placeholder="Task title" />
+            </div>
+            <div className="mb-3">
+              <input type="text" onChange={event => setNewTaskDescription(event.target.value)} className="form-control" placeholder="Task description" />
+            </div>
+            <div className="mb-3">
+              <input type="text" onChange={event => setNewTaskDeadline(event.target.value)} className="form-control" placeholder="Deadline, if you don't have one leave blank" />
+            </div>
+            <button type="submit">Add Task</button>
+          </form>
+          <button onClick={handleToggleState}>Cancel</button>
+        </div>
+        :
+        <div className="tasks-content w-100">
+          <div className="header-content d-flex" style={{ margin: '2%' }}>
+            <div className="title-container me-2">
+              <h2 className='text-light'>Tasks</h2>
+            </div>
+            <div className="add-task-container ms-3">
+              <button className="btn btn-danger" onClick={handleToggleState}>Add Task</button>
+            </div>
           </div>
-          <div className="add-task-container ms-3">
-            <button className="btn btn-danger" onClick={handleAddState}>Add Task</button>
+          <div className="tasks-container row">
+            {
+              taskList.map(task => {
+                let props = {
+                  taskHolder: task,
+                  keyHolder: setRefreshKey
+                }
+                return <TaskContainer {...props} key={task._id} />
+              })
+            }
           </div>
         </div>
-        <div className="tasks-container row">
-          {
-            taskList.map(task => {
-              let props = {
-                taskHolder: task,
-                keyHolder: setRefreshKey
-              }
-              return <TaskContainer {...props} key={task._id} />
-            })
-          }
-        </div>
-      </div>
       }
     </div>
   )
