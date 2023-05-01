@@ -6,49 +6,68 @@ import TaskContainer from '../components/dashboard_components/TaskContainer';
 function Tasks({ user }) {
 
   const [taskList, setTaskList] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [addState, setAddState] = useState(false);
+  const id = user.id;
 
   useEffect(() => {
+    const getTasks = async () => {
+      const accessToken = localStorage.getItem('token');
+      await axios.get("http://localhost:5000/tasks", {
+        headers: {
+          Authorization: 'Bearer ' + accessToken
+        },
+        params: {
+          userId: id
+        }
+      }).then(result => {
+        if (result) {
+          setTaskList(result.data);
+        } else {
+          console.log("No data fetched!");
+        }
+      }).catch(err => console.log(err));
+    };
     getTasks();
-  }, []);
+  }, [refreshKey, id, addState]);
 
-  const getTasks = async () => {
-    const accessToken = localStorage.getItem('token');
-    await axios.get("http://localhost:5000/tasks", {
-      headers: {
-        Authorization: 'Bearer ' + accessToken
-      },
-      params: {
-        userId: user.id
-      }
-    }).then(result => {
-      if (result) {
-        console.log('Successfull fetch!');
-        console.log(result.data);
-        setTaskList(result.data);
-      } else {
-        console.log("No data fetched!");
-      }
-    }).catch(err => console.log(err));
-  }
+  const handleAddState = () => {
+    setAddState(!addState);
+  };
+
+
 
   return (
     <div style={{ display: 'flex' }}>
       <SidebarNav user={user} />
+      { addState ? 
       <div className="tasks-content w-100">
-        <div className="header-content" style={{margin: '2%'}}>
-          <div className="title-container">
-            <h2>Tasks</h2>
+        <button onClick={handleAddState}>Cancel</button>
+        <button>Add Task</button>
+      </div> 
+      :
+      <div className="tasks-content w-100">
+        <div className="header-content d-flex" style={{ margin: '2%' }}>
+          <div className="title-container me-2">
+            <h2 className='text-light'>Tasks</h2>
+          </div>
+          <div className="add-task-container ms-3">
+            <button className="btn btn-danger" onClick={handleAddState}>Add Task</button>
           </div>
         </div>
         <div className="tasks-container row">
           {
             taskList.map(task => {
-              return <TaskContainer task={task} key={task._id}/>
+              let props = {
+                taskHolder: task,
+                keyHolder: setRefreshKey
+              }
+              return <TaskContainer {...props} key={task._id} />
             })
           }
         </div>
       </div>
-
+      }
     </div>
   )
 }

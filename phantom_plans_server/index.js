@@ -186,7 +186,7 @@ app.get('/tasks', verify,async (req,res) => {
 });
 
 app.delete('/task/remove', verify, async (req,res) => {
-    const {taskTitle} = req.body;
+    const {taskTitle} = req.query;
     console.log(taskTitle);
     await Task.findOneAndDelete({title : taskTitle})
         .then(task => {

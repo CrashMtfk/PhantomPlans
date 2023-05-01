@@ -1,7 +1,7 @@
 import './App.css';
 import Home from './pages/Home';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import { useEffect, useState } from 'react';
@@ -16,10 +16,10 @@ function App() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
-    if(storedUser) {
+    if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
-  },[]);
+  }, []);
 
   return (
     <div className="App">
@@ -29,14 +29,13 @@ function App() {
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/login" element={<Login setUser={setUser} />} />
           {
-             user && <Route exact path='/profile' element={<Profile user = {user}/>}/>
+            user && <Route exact path='/profile' element={<Profile user={user} />} />
           }
           {
-             user && <Route exact path='/tasks' element={<Tasks user = {user} />} />
-             
+            user && <Route exact path='/tasks' element={<Tasks user={user} />}/>
           }
           {
-             user && <Route exact path='/pomodoro' element={<Pomodoro user = {user} />} />
+            user && <Route exact path='/pomodoro' element={<Pomodoro user={user} />} />
           }
         </Routes>
       </BrowserRouter>
