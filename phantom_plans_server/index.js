@@ -122,7 +122,6 @@ app.post('/login', async (req, res) => {
 
 const verify = (req, res, next) => {
     const authHeader = req.headers.authorization;
-    console.log(authHeader);
     if (authHeader) {
         const token = authHeader.split(" ")[1];
 
@@ -139,29 +138,11 @@ const verify = (req, res, next) => {
     }
 }
 
-app.delete('/users/:userId', verify, async (req, res) => {
-    if (req.user.id == req.params.userId) {
-        await User.findByIdAndDelete(req.user.id)
-            .then(deletedUser => {
-                if (!deletedUser) {
-                    res.status(401).json('User not found!');
-                } else {
-                    res.status(200).json('User has been deleted!');
-                }
-            })
-            .catch(err => res.status(401).json('Something went wrong with deletion!'));
-    } else {
-        res.status(403).json("Not allowed to delete");
-    }
-});
-
 app.post('/task/add', verify, async (req, res) => {
-    const { taskTitle, taskDescription, taskDeadline, userId } = req.query;
-    console.log(userId);
+    const { taskTitle, taskDescription, taskDeadline, userId } = req.body;
     await User.findById(userId)
         .then(user => {
             if (user) {
-                console.log('Found the user!Proceed with task adding!');
                 const newTask = new Task({
                     title: taskTitle,
                     description: taskDescription,

@@ -45,12 +45,10 @@ function Tasks({ user }) {
   const addTaskForm = async (e) => {
     e.preventDefault();
     await axios.post("http://localhost:5000/task/add", {
-      params: {
-        title: newTaskTitle,
-        description: newTaskDescription,
-        deadline : newTaskDeadline,
+        taskTitle: newTaskTitle,
+        taskDescription: newTaskDescription,
+        taskDeadline : newTaskDeadline,
         userId: id
-      },
     }, {
       headers: {
         Authorization: 'Bearer ' + accessToken
