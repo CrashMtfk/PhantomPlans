@@ -183,6 +183,20 @@ app.delete('/task/remove', verify, async (req,res) => {
         })
 });
 
+app.put('/task/update', verify, async(req,res) => {
+    const {taskTitle, taskDescription, taskDeadline, taskId} = req.body;
+    console.log(taskId);
+    await Task.findByIdAndUpdate(taskId,{
+        title: taskTitle,
+        description: taskDescription,
+        deadline: taskDeadline
+    })
+    .then(resp => {
+        res.status(200).json(resp);
+    })
+    .catch(err => res.status(500).json('Something happened'));
+});
+
 
 const PORT = process.env.PORT || 5000;
 

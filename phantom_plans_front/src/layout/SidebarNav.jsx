@@ -4,10 +4,21 @@ import tasksLogo from '../assets/check-square.svg'
 import profileLogo from '../assets/user.svg'
 import pomoLogo from '../assets/clock.svg'
 import phantomLogo from '../assets/navBarLogo.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../styling/sidebarNav.css'
 
 function SidebarNav({ user }) {
+
+    const navigate = useNavigate();
+
+    const logOutUser = () => {
+        navigate('/');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        console.log('The fck is going on?');
+        
+    };
+
     return (
         <div className='sidebar-container'>
             <ProSidebarProvider className='d-flex sidebar-component'>
@@ -29,7 +40,7 @@ function SidebarNav({ user }) {
                 </div>
                 <div className="user-name-container text-center">
                     <p>{user.username}</p>
-                    <Link to={''} className='btn btn-outline-danger logout-button'>Log out</Link>
+                    <button to={''} className='btn btn-outline-danger logout-button' onClick={logOutUser}>Log out</button>
                 </div>
             </ProSidebarProvider>
         </div>

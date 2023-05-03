@@ -8,11 +8,7 @@ function Tasks({ user }) {
   
 
   const accessToken = localStorage.getItem('token');
-
-  axios.defaults.headers.common = {
-    'Authorization': 'Bearer ' + accessToken
-  };
-
+  
   const [taskList, setTaskList] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0);
   const [addState, setAddState] = useState(false);
