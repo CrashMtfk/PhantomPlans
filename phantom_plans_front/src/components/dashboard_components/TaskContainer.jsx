@@ -40,7 +40,7 @@ function TaskContainer(props) {
     }
 
     return (
-        <div className={completed ? 'card w-25 h-25 col-sm-6 opacity-50' : 'card w-25 h-25 col-sm-6 shadow-p'} style={{ marginLeft: '2%', marginRight: '2%' }}>
+        <div className={completed ? 'card w-25 h-25 col-sm-6 opacity-50 text-bg-warning' : 'card w-25 h-25 col-sm-6 shadow-p text-bg-warning'} style={{ marginLeft: '2%', marginRight: '2%' }}>
             {editState ?
                 (
                     <EditTaskContainer setEditState = {setEditState} task = {props.taskHolder} refresh = {props.keyHolder}/>

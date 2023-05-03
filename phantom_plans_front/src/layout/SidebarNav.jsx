@@ -15,8 +15,6 @@ function SidebarNav({ user }) {
         navigate('/');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        console.log('The fck is going on?');
-        
     };
 
     return (

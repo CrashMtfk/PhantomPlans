@@ -14,7 +14,6 @@ function EditTaskContainer({setEditState, task, refresh}) {
     const updateTask = (e) => {
         e.preventDefault();
         const accessToken = localStorage.getItem('token');
-        console.log(modifiedTitle + " " + modifiedDescription + " " + modifiedDeadline + " " + task._id);
         axios.put('http://localhost:5000/task/update',{
             taskTitle: modifiedTitle,
             taskDescription: modifiedDescription,
