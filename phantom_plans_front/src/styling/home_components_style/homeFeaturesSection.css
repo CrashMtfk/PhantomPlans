@@ -10,14 +10,23 @@ body {
 
 .title-text {
     text-shadow: 0px 6px 6px rgba(0, 0, 0, 0.5);
+    font-size: var(--text-font-title-big);
+    color: var(--text-medium-title-color);
+    font-weight: var(--font-weight-bold);
 }
 
 .title-phantom {
-    color: #9A0E0E;
+    color: var(--text-medium-special-color);
+}
+
+.feature-container {
+    padding: 5%;
 }
 
 .feature-title {
-    color: #CC6633;
+    font-size: var(--text-font-title-medium);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-medium-chapters-color);
     text-shadow: 0px 6px 6px rgba(0, 0, 0, 0.5);
 }
 
@@ -26,6 +35,9 @@ body {
     justify-content: center;
     align-content: center;
     flex-direction: column;
+
+    font-size: var(--text-font-title-normal);
+    color: var(--text-small-default-color);
 }
 
 .task-feature-list-description {

@@ -30,7 +30,7 @@ export default function LogIn({setUser}) {
   
 
   return (
-    <div className='login-container'>
+    <div className='login-container d-flex flex-column'>
       <Navbar />
       <div className="content-container w-25 mx-auto d-flex flex-column align-items-center justify-content-center">
         <div className="logo-container mt-5 mb-5">
@@ -51,7 +51,6 @@ export default function LogIn({setUser}) {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

@@ -1,3 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+:root {
+  --background-body-color: #6E6D73;
+  --background-component-color: #CC6633;
+  --background-footer-color: #6F687A;
+  
+  --text-big-default-color: #B59E90;
+  --text-big-special-color: #CC6633;
+
+  --text-medium-title-color: #F3F3F3;
+  --text-medium-chapters-color: #CC6633;
+  --text-medium-about-color: #B59E90;
+  --text-medium-special-color: #9A0E0E;
+
+  --text-small-default-color: #F3F3F3;
+  --text-small-unimportant: #A58D89;
+
+  --text-font-title-big: 40px;
+  --text-font-title-medium: 32px;
+  --text-font-title-normal: 24px;
+
+  --text-font-content-big: 16px;
+  --text-font-content-medium: 14px;
+  --text-font-content-small: 12px;
+
+  --btn-primary-text-color: #F3F3F3;
+  --btn-primary-background-color: #9A0E0E;
+  --btn-secondary-text-color: #9A0E0E;
+  --btn-secondary-background-color: #CC6633;
+
+  --font-weight-bold:700;
+  --font-weight-medium : 550;
+}
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -17,6 +52,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+  font-family: 'Source Code Pro', monospace;
 }
 
 body {

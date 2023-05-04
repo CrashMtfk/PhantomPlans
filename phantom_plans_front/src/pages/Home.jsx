@@ -6,9 +6,6 @@ import HomeFeaturesSection from '../components/home_components/HomeFeaturesSecti
 import HomeAboutSection from '../components/home_components/HomeAboutSection';
 
 export default function Home() {
-
-  
-
   return (
     <div className='home-container'>
         <Navbar/>

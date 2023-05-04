@@ -1,19 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 
-* {
-    font-family: 'Source Code Pro', monospace;
+
+nav {
+    background-color: var(--background-component-color);
+    border-radius: 0px 0px 50px 50px;
+    box-shadow: 0px 3px 30px -2px rgba(0,0,0,0.75);
 }
 
 .action-buttons {
-    width: 12%;
+    width: 15%;
 }
 
 #log-in-link{
-    color: #9A0E0E;
-    
+    color: var(--btn-secondary-text-color);
+    cursor: pointer;
+    text-shadow: 0px 6px 6px rgba(0, 0, 0, 0.5);
+}
+
+#log-in-link:hover{
+    color: var(--btn-primary-text-color);
+    background-color: var(--btn-primary-background-color);
 }
 
 #sign-up-button {
-    background-color: #9A0E0E;
-    color: white;
+    background-color: var(--btn-primary-background-color);
+    color: var(--btn-primary-text-color);
+
+    cursor: pointer;
+}
+
+#sign-up-button:hover{
+    border: 1px solid var(--btn-primary-background-color);
+    background-color: var(--background-component-color);
+    color: var(--btn-secondary-text-color);
+    
+    text-shadow: 2px 2px 7px #000000;
 }

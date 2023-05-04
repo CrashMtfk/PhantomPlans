@@ -1,7 +1,7 @@
 import React from 'react'
 import heroIllustration from '../../assets/calendar_hero_illustration.svg'
 import Typed from 'react-typed'
-import '../../styling/homeHeroSection.css'
+import '../../styling/home_components_style/homeHeroSection.css'
 import {Link} from 'react-router-dom'
 
 export default function HomeHeroSection() {
@@ -9,7 +9,7 @@ export default function HomeHeroSection() {
     <div className='mt-5'>
         <div className="hero-left-container">
             <div className="hero-text text-center">
-                <h1 className='fw-bold'>THIS IS YOUR NEW</h1>
+                <h1 className='fw-bold first-line'>THIS IS YOUR NEW</h1>
                 <h1><Typed 
                         className ="typing-hero-text fw-bold"
                         strings={[

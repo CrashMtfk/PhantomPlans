@@ -1,29 +1,33 @@
 .title {
+    color: var(--text-medium-title-color);
+    font-size: var(--text-font-title-medium);
+    font-weight: var(--font-weight-bold);
     text-shadow: 0px 6px 6px rgba(0, 0, 0, 0.5);
 }
 
 .starting-text-container {
     margin-top: 10%;
-    color: #B59E90;
+    color: var(--text-medium-about-color);
     text-shadow: 0px 6px 6px rgba(0, 0, 0, 0.5);
 }
 
 .starting-text-container span {
-    color: #9A0E0E;
+    color: var(--text-medium-special-color);
 }
 
 .ending-text-container {
     margin-top: 10%;
-    color: #B59E90;
+    color: var(--text-medium-about-color);
     text-shadow: 0px 6px 6px rgba(0, 0, 0, 0.5);
 }
 
 .ending-text-container span {
-    color: #9A0E0E;
+    color: var(--text-medium-special-color);
 }
 
 .main-about-section {
     margin-top: 3%;
+    color: var(--text-small-default-color);
 }
 
 .profile-image-container {
@@ -33,11 +37,11 @@
 }
 
 .left-atributes-container span {
-    color: #CC6633;;
+    color: var(--text-medium-chapters-color);
 }
 
 .right-atributes-container span {
-    color: #CC6633;;
+    color: var(--text-medium-chapters-color);
 }
 
 .left-first-item {
