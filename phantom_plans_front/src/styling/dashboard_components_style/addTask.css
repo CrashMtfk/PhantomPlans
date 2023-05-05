@@ -1,0 +1,40 @@
+.centering-div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.add-task-form {
+    margin: auto;
+    width: 30%;
+    padding: 1%;
+    border-radius: 25px;
+    box-shadow: 0px 3px 30px -2px rgba(0,0,0,0.75);
+
+    background-color: var(--background-component-color);
+}
+
+.add-task-form h2 {
+    color: var(--text-medium-special-color);
+    text-shadow: 0px 6px 6px rgba(0, 0, 0, 0.5);
+}
+
+.add-task-form input{
+    background-color: var(--background-body-color);
+}
+
+.add-task-form textarea {
+    background-color: var(--background-body-color);
+}
+
+.add-task-form input::placeholder{
+    color: var(--text-small-default-color);
+}
+
+.add-task-form textarea::placeholder {
+    color: var(--text-small-default-color);
+}
+
+.input-task-add-container {
+    margin: auto;
+}

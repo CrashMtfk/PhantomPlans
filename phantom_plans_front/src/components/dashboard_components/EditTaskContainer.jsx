@@ -38,14 +38,15 @@ function EditTaskContainer({setEditState, task, refresh}) {
                     <input type="text" onChange={e => setModifiedTitle(e.target.value)} className="form-control" placeholder="Task title" defaultValue={task.title} />
                 </div>
                 <div className="mb-3">
-                    <input type="text" onChange={e => setModifiedDescription(e.target.value)} className="form-control" placeholder="Task description" defaultValue={task.description}/>
+                    <textarea type="text" onChange={e => setModifiedDescription(e.target.value)} className="form-control" placeholder="Task description" defaultValue={task.description}/>
                 </div>
                 <div className="mb-3">
                     <input type="text" onChange={e => setModifiedDeadline(e.target.value)} className="form-control" placeholder="Deadline, if you don't have one leave blank" defaultValue={task.deadline} />
                 </div>
                 <button type="submit">Apply</button>
+                <button className='btn btn-outline-danger' onClick={changeState}>Cancel</button>
             </form>
-            <button className='btn btn-outline-danger' onClick={changeState}>Cancel</button>
+            
         </div>
     )
 }

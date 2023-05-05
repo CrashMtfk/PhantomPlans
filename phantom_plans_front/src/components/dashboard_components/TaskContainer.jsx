@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import EditTaskContainer from './EditTaskContainer';
+import '../../styling/dashboard_components_style/taskComponents.css'
 
 function TaskContainer(props) {
 
@@ -40,21 +41,21 @@ function TaskContainer(props) {
     }
 
     return (
-        <div className={completed ? 'card w-25 h-25 col-sm-6 opacity-50 text-bg-warning' : 'card w-25 h-25 col-sm-6 shadow-p text-bg-warning'} style={{ marginLeft: '2%', marginRight: '2%' }}>
+        <div className={completed ? 'card w-25 h-25 col-sm-6 my-3 opacity-50 task-card-container' : 'card w-25 h-25 col-sm-6 my-3 shadow-p task-card-container'} style={{ marginLeft: '2%', marginRight: '2%' }}>
             {editState ?
                 (
                     <EditTaskContainer setEditState = {setEditState} task = {props.taskHolder} refresh = {props.keyHolder}/>
                 )
                 :
                 (
-                    <div className="task-card-container">
+                    <div>
                         <div className="card-header  mt-3 text-center">
                             <h5 className="card-title">
                                 {props.taskHolder.title}
                             </h5>
                         </div>
                         <div className="card-body">
-                            <p className="card-text">
+                            <p className="card-text task-description">
                                 {props.taskHolder.description}
                             </p>
                             <p className='card-text'>

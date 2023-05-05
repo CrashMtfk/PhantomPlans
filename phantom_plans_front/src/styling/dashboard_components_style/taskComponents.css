@@ -1,0 +1,24 @@
+.task-card-container {
+    background-color: var(--background-component-color);
+    box-shadow: 0px 3px 30px -2px rgba(0,0,0,0.75);
+}
+
+.card-title {
+    color: var(--text-medium-title-color);
+    text-shadow: 0px 6px 6px rgba(0, 0, 0, 0.5);
+}
+
+.card-body {
+    color: var(--text-medium-about-color);
+}
+
+.task-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+   -webkit-line-clamp: 3; /* number of lines to show */
+           line-clamp: 3; 
+   -webkit-box-orient: vertical;
+
+   
+}

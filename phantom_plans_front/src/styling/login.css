@@ -1,14 +1,12 @@
 .content-container{
     margin-top: 5%;
     margin-bottom: 5%;
-    background-color: #CC6633;
-    border-radius: 25px;
-}.account-text {
-    color: #B59E90;
+    background-color: var(--background-component-color);
+    border-radius: 25px; 
+    box-shadow: 0px 10px 13px -7px #000000, 0px 0px 0px 0px rgba(0,0,0,0);
 }
-
-#login-btn{
-    background-color: #9A0E0E;
+.account-text {
+    color: #B59E90;
 }
 
 .username-input {
@@ -28,4 +26,36 @@
 
 .password-input::placeholder{
     color: #B59E90;
+}
+
+/* CSS */
+.button-87 {
+  margin: 10px;
+  padding: 15px 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+  display: block;
+  border: 0px;
+  font-weight: 700;
+  box-shadow: 0px 0px 14px -7px #f09819;
+  background-image: linear-gradient(45deg, #9A0E0E 0%, #B33C24  51%, #9A0E0E  100%);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-87:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+.button-87:active {
+  transform: scale(0.95);
 }

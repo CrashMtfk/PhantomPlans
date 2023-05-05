@@ -1,6 +1,5 @@
 import React from 'react'
 import Navbar from '../layout/Navbar'
-import Footer from '../layout/Footer'
 import loginLogo from '../assets/sign_login_logo.svg'
 import '../styling/login.css'
 import { useState } from 'react'
@@ -44,7 +43,7 @@ export default function LogIn({setUser}) {
             <div className="mb-4">
               <input type="password" name='password' onChange={(event) => setLoginPassword(event.target.value)} className='form-control password-input' id="passwordInput" placeholder='Password' />
             </div>
-            <button type="submit" className='btn wb-3 w-50 mx-auto text-light' id='login-btn'>Log In</button>
+            <button type="submit" className='button-87' id='login-btn'>Log In</button>
           </form>
           <div className="no-account-text mb-5 mt-5">
             <p className='text-center account-text'>Don't have an account?<Link to={'/signup'} className='nav-link text-light'>Sign Up</Link></p>

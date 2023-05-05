@@ -23,16 +23,16 @@ function SidebarNav({ user }) {
                 <div className="phantom-logo-container">
                     <img src={phantomLogo} alt="" />
                 </div>
-                <div className="nav-links-container">
-                    <Menu className='nav-items-container'>
+                <div className="nav-links-container-sidebar">
+                    <Menu className='nav-items-container-sidebar'>
                         <div className="menu-item-container">
-                            <MenuItem className='item-container' component={<Link to='/profile' />}><img src={profileLogo} alt="" /></MenuItem>
+                            <MenuItem className='item-container-sidebar' component={<Link to='/profile' />}><img src={profileLogo} alt="" /></MenuItem>
                         </div>
                         <div className="menu-item-container">
-                            <MenuItem className='item-container' component={<Link to='/tasks' />}><img src={tasksLogo} alt="" /></MenuItem>
+                            <MenuItem className='item-container-sidebar' component={<Link to='/tasks' />}><img src={tasksLogo} alt="" /></MenuItem>
                         </div>
                         <div className="menu-item-container">
-                            <MenuItem className='item-container' component={<Link to='/pomodoro' />}><img src={pomoLogo} alt="" /></MenuItem>
+                            <MenuItem className='item-container-sidebar' component={<Link to='/pomodoro' />}><img src={pomoLogo} alt="" /></MenuItem>
                         </div>
                     </Menu>
                 </div>
