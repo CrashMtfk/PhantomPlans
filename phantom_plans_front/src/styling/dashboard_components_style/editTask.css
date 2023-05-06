@@ -1,0 +1,11 @@
+.edit-form-container {
+    padding: 2%;
+}
+
+.edit-form-container input{
+    background-color: var(--background-body-color);
+}
+
+.edit-form-container textarea {
+    background-color: var(--background-body-color);
+}

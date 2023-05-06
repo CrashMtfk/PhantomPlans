@@ -24,7 +24,19 @@ function SidebarNav({ user }) {
                     <img src={phantomLogo} alt="" />
                 </div>
                 <div className="nav-links-container-sidebar">
-                    <Menu className='nav-items-container-sidebar'>
+                    <Menu className='nav-items-container-sidebar' menuItemStyles={{
+                        button: {
+                            '&:hover': {
+                                backgroundColor: 'red',
+                                boxShadow : '0px 3px 30px -2px rgba(0,0,0,0.75);'
+                            },
+                            borderRadius: '50px',
+                            width: '80px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        },
+                    }}>
                         <div className="menu-item-container">
                             <MenuItem className='item-container-sidebar' component={<Link to='/profile' />}><img src={profileLogo} alt="" /></MenuItem>
                         </div>

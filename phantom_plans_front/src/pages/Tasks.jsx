@@ -3,6 +3,7 @@ import axios from 'axios'
 import SidebarNav from '../layout/SidebarNav';
 import TaskContainer from '../components/dashboard_components/TaskContainer';
 import '../styling/dashboard_components_style/addTask.css'
+import '../styling/dashboard_components_style/tasksView.css'
 
 function Tasks({ user }) {
 
@@ -98,8 +99,8 @@ function Tasks({ user }) {
               <button className="btn btn-danger" onClick={handleToggleState}>Add Task</button>
             </div>
           </div>
-          <div className="container">
-            <div className="row hidden-md-up">
+          <div className="container tasks-container-grid">
+            <div className="row hidden-md-up row-container">
               {
                 taskList.map(task => {
                   let props = {

@@ -1,16 +1,13 @@
 .sidebar-container {
     min-height: 100vh;
-    width: 7%;
-
+    width: 8%;
+    
     background-color: #CC6633;
     border-radius: 0px 25px 25px 0px;
 }
 
-.sidebar-component {
-    justify-content:flex-end;
-}
-
 .phantom-logo-container {
+    height: 10%;
     width: 10%;
     display: flex;
     justify-content: center;
@@ -21,8 +18,17 @@
 .nav-links-container-sidebar {
     width: 80%;
     margin: auto;
+    height: 80%;
+    position: relative;
 }
 
+.nav-items-container-sidebar {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
 
 .item-container-sidebar {
     margin: 20% auto;
