@@ -79,7 +79,7 @@ app.post('/register', (req, res) => {
                     newUser.save()
                         .then(user => {
                             responseMessage = 'Registered successfully';
-                            res.send(responseMessage);
+                            res.status(200).send(responseMessage);
                         })
                         .catch(err => console.log(err));
                 }));
@@ -169,9 +169,9 @@ app.get('/tasks', verify,async (req,res) => {
 });
 
 app.delete('/task/remove', verify, async (req,res) => {
-    const {taskTitle} = req.query;
-    console.log(taskTitle);
-    await Task.findOneAndDelete({title : taskTitle})
+    const {taskId} = req.query;
+    console.log(taskId);
+    await Task.findOneAndDelete({_id : taskId})
         .then(task => {
             if(!task){
                 res.status(401).json('This task doesnt exist');

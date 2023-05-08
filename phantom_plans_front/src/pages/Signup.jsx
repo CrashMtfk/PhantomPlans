@@ -14,6 +14,8 @@ export default function SignUp() {
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerMessage, setRegisterMessage] = useState("");
 
+  const [isError, setIsError] = useState(false);
+
   const registerUser = (event) => {
     event.preventDefault();
     axios.post('http://localhost:5000/register',{
@@ -22,7 +24,13 @@ export default function SignUp() {
       username : registerUsername,
       password : registerPassword
     }).then((res) => {
-      setRegisterMessage(res.data);
+      if(res.data === "Registered successfully"){
+        setRegisterMessage(res.data);
+        setIsError(false);
+      } else {
+        setRegisterMessage(res.data);
+        setIsError(true);
+      }
     }).catch((err) => {
       console.log(err);
     });
@@ -36,7 +44,7 @@ export default function SignUp() {
           <img src={signupLogo} alt="" />
         </div>
         <div className="message-container text-center">
-          <p>{registerMessage}</p>
+          <p className={isError ? "text-warning" : "text-info"}>{registerMessage}</p>
         </div>
         <div className="form-container w-75">
           <form action="" onSubmit={registerUser} className='d-flex flex-column'>

@@ -20,12 +20,13 @@ function TaskContainer(props) {
 
     let deleteTask = async () => {
         const accessToken = localStorage.getItem('token');
+        console.log(props.taskHolder._id);
         await axios.delete("http://localhost:5000/task/remove", {
             headers: {
                 Authorization: 'Bearer ' + accessToken
             },
             params: {
-                taskTitle: props.taskHolder.title
+                taskId: props.taskHolder._id
             }
         }).then(result => {
             props.keyHolder(key => key + 1);
