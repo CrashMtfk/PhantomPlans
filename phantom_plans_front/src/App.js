@@ -1,7 +1,7 @@
 import './App.css';
 import Home from './pages/Home';
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import { useEffect, useState } from 'react';
@@ -29,7 +29,7 @@ function App() {
           <Route exact path="/signup" element={<Signup />} />
           <Route exact path="/login" element={<Login setUser={setUser} />} />
           {
-            user && <Route exact path='/profile' element={<Profile user={user} />} />
+            user && <Route exact path='/profile' element={<Profile user={user} />}/>
           }
           {
             user && <Route exact path='/tasks' element={<Tasks user={user} />}/>
